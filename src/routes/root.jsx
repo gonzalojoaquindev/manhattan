@@ -13,67 +13,15 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../components/listitems';
+import MainListItems from '../components/listitems';
+import { orange } from "@mui/material/colors";
 
 
-/* 
-export default function Root() {
-    return (
-        <>
-            <div id="sidebar">
-                <h1>React Router Contacts</h1>
-                <div>
-                    <form id="search-form" role="search">
-                        <input
-                            id="q"
-                            aria-label="Search contacts"
-                            placeholder="Search"
-                            type="search"
-                            name="q"
-                        />
-                        <div
-                            id="search-spinner"
-                            aria-hidden
-                            hidden={true}
-                        />
-                        <div
-                            className="sr-only"
-                            aria-live="polite"
-                        ></div>
-                    </form>
-                    <form method="post">
-                        <button type="submit">New</button>
-                    </form>
-                </div>
-                <nav>
-                    <ul>
-                        <li>
-                            <a href={`/contacts/1`}>Your Name</a>
-                        </li>
 
-                        <li>
-                            <LinkRoute to={`clients`}>Clientes</LinkRoute>
-
-                        </li>
-                        <li>
-                            <LinkRoute to={`/bookings`}>Reservas</LinkRoute>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div id="detail"></div>
-        </>
-    );
-}
-
-
- */
 
 function Copyright(props) {
     return (
@@ -134,17 +82,28 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: orange,
+
+    },
+});
+
 
 export default function Dashboard() {
-    const [open, setOpen] = React.useState(true);
+
+
+    const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+
+        <ThemeProvider theme={darkTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open} >
@@ -173,8 +132,11 @@ export default function Dashboard() {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Proyecto ultra secreto Manhatttan
+                            SkipKiu
                         </Typography>
+                        <IconButton>
+
+                        </IconButton>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="primary">
                                 <NotificationsIcon />
@@ -197,18 +159,13 @@ export default function Dashboard() {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        <MainListItems />
+
                     </List>
                 </Drawer>
                 <Box
                     component="main"
                     sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'dark'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
                         flexGrow: 1,
                         height: '100vh',
                         overflow: 'auto',
@@ -217,44 +174,10 @@ export default function Dashboard() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Outlet />
-                        {/* <Grid container spacing={3}>
-                           
-                            <Grid item xs={12} md={8} lg={9}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <h2>Aqui deberia ir el chart</h2>
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12} md={4} lg={3}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <h2>Aqui deberia ir el deposit</h2>
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                    <h2>Aqui deberia ir el order</h2>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        <Copyright sx={{ pt: 4 }} />*/}
                     </Container>
                 </Box>
             </Box>
         </ThemeProvider>
+
     );
 }

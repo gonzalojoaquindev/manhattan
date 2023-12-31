@@ -3,11 +3,18 @@ import React from 'react'
 import 'kalend/dist/styles/index.css'; // import styles
 import CalendComponent from '../components/Calendar';
 import { Box } from '@mui/material';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 /* import BookingModal from '../components/BookingModal'; */
 
 
 
 const Bookings = () => {
+
+    /*   const darkTheme = createTheme({
+          palette: {
+              mode: 'dark',
+          },
+      }); */
 
     const events = [
         {
@@ -45,13 +52,14 @@ const Bookings = () => {
 
     }
     return (
+
         <Box
             component="main"
             sx={{
-                backgroundColor: (theme) =>
+                /* backgroundColor: (theme) =>
                     theme.palette.mode === 'dark'
                         ? theme.palette.grey[100]
-                        : theme.palette.grey[900],
+                        : theme.palette.grey[900], */
                 flexGrow: 1,
                 height: '100vh',
                 overflow: 'auto',
@@ -62,6 +70,7 @@ const Bookings = () => {
 
 
         </Box>
+
     )
 
 }

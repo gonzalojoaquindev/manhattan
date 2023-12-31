@@ -1,6 +1,7 @@
 import React from 'react'
+
 import ListUser from '../components/UserList'
-/* import { Hijo } from '../components/Hijo' */
+
 
 
 const clients = () => {
@@ -24,12 +25,13 @@ const clients = () => {
 
     }
     return (
-        <div>
-
+        <>
             <ListUser />
-        </div>
+
+        </>
     )
 }
+{/*    */ }
 
 {/* <h1>Pagina de clientes</h1>
             <ul>

@@ -10,6 +10,8 @@ import ErrorPage from "./components/error-page";
 import Contact from "./routes/contact";
 import Clients from "./routes/clients";
 import Bookings from "./routes/bookings";
+import Pruebas from "./routes/pruebas";
+
 
 const router = createBrowserRouter([
   {
@@ -30,14 +32,20 @@ const router = createBrowserRouter([
       {
         path: "clients",
         element: <Clients />
+      },
+      {
+        path: "pruebas",
+        element: <Pruebas />
       }
 
     ]
   }
 ]);
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
+
 );
