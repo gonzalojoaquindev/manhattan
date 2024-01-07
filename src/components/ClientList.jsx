@@ -6,28 +6,38 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import CakeIcon from '@mui/icons-material/Cake';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { Button, TextField } from '@mui/material';
 import AddClient from './ClientAdd';
 import EditClient from './ClientEdit';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../firebase'
+import { DateTime } from "luxon";
 
 
+/* console.log('20-07-1993'
+    .setLocale("es")
+    .toLocaleString(DateTime.DATE_FULL))
+ */
+export default function ClientList() {
 
-
-
-
-
-
-export default function ListUser() {
-
+    const [clients, setClients] = React.useState([])
     const [editOpen, setEditOpen] = React.useState(false);
     const [addOpen, setAddOpen] = React.useState(false)
-    console.log("estado de addOpen", addOpen)
-    const [newClient, setNewClient] = React.useState({ name: "defecto", email: "defecto" })
-    const [selectedValue, setSelectedValue] = React.useState({ name: "Defecto", email: "defecto" });
-    console.log(selectedValue)
+    const [selectedValue, setSelectedValue] = React.useState(
+        {
+            name: "Defecto",
+            email: "defecto",
+            birthday: '01-01-2024'
+        }
+    );
 
+    const addClient = () => {
+        setAddOpen(true)
+        console.log(addOpen)
+    }
 
     const handleCloseEdit = (value) => {
         setEditOpen(false);
@@ -36,18 +46,12 @@ export default function ListUser() {
 
     const handleCloseAdd = () => {
         setAddOpen(false);
-
     };
 
     const handleListItemClick = (value) => {
         setSelectedValue(value)
-        console.log(selectedValue)
-        console.log("valor seleccionado", selectedValue)
         setEditOpen(true);
     };
-
-    //Para manejar el estado
-    const [clients, setClients] = React.useState([])
 
     //para ejecutar la peticion luego de que se rendericen los elementos
     React.useEffect(() => {
@@ -55,15 +59,10 @@ export default function ListUser() {
     }, [])
 
     const getClients = async () => {
-        const data = await fetch('https://jsonplaceholder.typicode.com/users')
-        const clients = await data.json()
-        /*   console.log(clients) */
-        setClients(clients)
-    }
-
-    const addClient = () => {
-        setAddOpen(true)
-        console.log(addOpen)
+        const data = await getDocs(collection(db, "clients"));
+        setClients(
+            data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        )
     }
 
 
@@ -84,17 +83,26 @@ export default function ListUser() {
                                     secondary={
                                         <>
                                             <Typography
-                                                sx={{ display: 'inline' }}
+                                                sx={{ display: 'block' }}
+                                                color="text.secondary"
                                                 component="span"
-                                                variant="body2"
-                                                color="text.primary"
                                             >
-                                                Ali Connors
+                                                {item.email}
                                             </Typography>
-                                            {" — esto es lo que dice abajo…"}
+                                            <Typography
+                                                sx={{ display: 'block' }}
+                                                color="text.secondary"
+                                                component="span"
+                                            >
+                                                <CakeIcon sx={{ color: 'pink' }} />
+                                                {item.birthday}
+                                            </Typography>
+
                                         </>
                                     }
+
                                 />
+
                             </ListItemButton>
                         </ListItem>
                     ))

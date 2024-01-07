@@ -7,7 +7,6 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 /* import BookingModal from '../components/BookingModal'; */
 
 
-
 const Bookings = () => {
 
     /*   const darkTheme = createTheme({
